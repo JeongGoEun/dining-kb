@@ -1,12 +1,10 @@
 import './App.css';
-import { DiningList } from './components';
+import { AppContainer } from './components';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <DiningList />
-      </header>
+      <AppContainer />
     </div>
   );
 }
