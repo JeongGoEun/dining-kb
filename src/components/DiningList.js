@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -27,7 +27,7 @@ export default function DiningList(props) {
     <div>
       <List className={classes.root}>
         {props.restaurantList.map((item) => (
-          <ListItem alignItems="flex-start">
+          <ListItem alignItems="flex-start" key={item.name}>
             <DiningPaper info={item} />
           </ListItem>
         ))}

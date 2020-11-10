@@ -37,7 +37,7 @@ export default function DiningPaper(props) {
 
   useEffect (() => {
     setRestaurantList(testData.data)
-    console.log(restaurantList);
+    //console.log(restaurantList);
   }, [restaurantList]);
 
   return (
