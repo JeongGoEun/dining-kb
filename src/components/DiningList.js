@@ -5,7 +5,6 @@ import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 
 import { DiningPaper } from './index';
-import * as testData from '../static/testData.json';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -21,19 +20,13 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-export default function DiningList() {
+export default function DiningList(props) {
   const classes = useStyles();
-  const [restaurantList, setRestaurantList] = useState([]);
-
-  useEffect(() => {
-    setRestaurantList(testData.data);
-    console.log(restaurantList);
-  }, [restaurantList]);
 
   return (
     <div>
       <List className={classes.root}>
-        {restaurantList.map((item) => (
+        {props.restaurantList.map((item) => (
           <ListItem alignItems="flex-start">
             <DiningPaper info={item} />
           </ListItem>
