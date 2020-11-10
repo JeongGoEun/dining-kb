@@ -26,7 +26,7 @@ export default function DiningList(props) {
   return (
     <div>
       <List className={classes.root}>
-        {props.restaurantList.map((item) => (
+        {props.restaurantList.length > 0 && props.restaurantList.map((item) => (
           <ListItem alignItems="flex-start" key={item.name}>
             <DiningPaper info={item} />
           </ListItem>

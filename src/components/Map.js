@@ -8,8 +8,8 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 const centerLocation = {
-  lat: 37.541894, 
-  lng: 126.949751
+  lat: 37.541894,
+  lng: 126.949751,
 };
 
 export default function Map(props) {
@@ -22,15 +22,30 @@ export default function Map(props) {
       level: 3,
     };
     const map = new kakao.maps.Map(container, options);
+    const geocoder = new kakao.maps.services.Geocoder();
 
     props.restaurantList.forEach((item) => {
-		// console.log(item)
-		new kakao.maps.Marker({
-			map: map,
-			position: new kakao.maps.LatLng(item.lat, item.lng),
-			title: item.name
-		});
-	});
+      geocoder.addressSearch(item.address, (result, status) => {
+        if (status === kakao.maps.services.Status.OK) {
+          console.log(result);
+          var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+          var marker = new kakao.maps.Marker({
+            map: map,
+            position: coords,
+          });
+        }
+      });
+    });
+
+    // props.restaurantList.forEach((item) => {
+    // 	// console.log(item)
+    // 	new kakao.maps.Marker({
+    // 		map: map,
+    // 		position: new kakao.maps.LatLng(item.lat, item.lng),
+    // 		title: item.name
+    // 	});
+    // });
   });
 
   return <div id="myMap" className={classes.mapStyle} />;
