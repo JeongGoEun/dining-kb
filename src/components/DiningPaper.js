@@ -1,10 +1,9 @@
-import React , {useState, useEffect}from 'react';
+import React, {useState}from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import ButtonBase from '@material-ui/core/ButtonBase';
-import * as testData from '../static/testData.json'
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -33,15 +32,20 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DiningPaper(props) {
   const classes = useStyles();
-  const [restaurantList, setRestaurantList] = useState([]);
+  const [paperColor, setPaperColor]= useState('lavendar');
 
-  useEffect (() => {
-    setRestaurantList(testData.data)
-  }, [restaurantList]);
+  const onMouseOver = (e) => {
+    //console.log(props.index);
+    setPaperColor('gainsboro')
+  }
+
+  const onMouseOut = (e) => {
+    setPaperColor('lavender')
+  }
 
   return (
-    <div className={classes.root}>
-      <Paper className={classes.paper} elevation={3}>
+    <div className={classes.root} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
+      <Paper id={props.info.name} className={classes.paper} elevation={3} style={{backgroundColor: paperColor}}>
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>

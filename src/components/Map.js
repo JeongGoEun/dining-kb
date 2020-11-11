@@ -4,7 +4,7 @@ import { makeStyles } from '@material-ui/core/styles';
 const { kakao } = window;
 const useStyles = makeStyles((theme) => ({
   mapStyle: {
-    height: '600px',
+    height: '680px',
   },
 }));
 const centerLocation = {
@@ -28,7 +28,7 @@ export default function Map(props) {
     props.restaurantList.forEach((item) => {
       geocoder.addressSearch(item.address, (result, status) => {
         if (status === kakao.maps.services.Status.OK) {
-          console.log(result);
+          // console.log(result);
           var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
 
           var marker = new kakao.maps.Marker({
@@ -42,7 +42,6 @@ export default function Map(props) {
             '    <div class="info">' +
             '        <div class="title">' +
             item.name +
-            '            <div class="close" onclick="closeOverlay()" title="닫기"></div>' +
             '        </div>' +
             '        <div class="body">' +
             '            <div class="img">' +
@@ -70,7 +69,7 @@ export default function Map(props) {
 
           kakao.maps.event.addListener(marker, 'mouseover', () => {
             overlay.setMap(map);
-          });
+		  });
           kakao.maps.event.addListener(marker, 'mouseout', () => {
             overlay.setMap(null);
           });

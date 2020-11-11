@@ -16,23 +16,34 @@ const useStyles = makeStyles((theme) => ({
   },
   moreButton: {
     marginBottom: '5%',
-    width: '92%'
-  }
+    width: '92%',
+  },
 }));
 
 export default function DiningList(props) {
   const classes = useStyles();
+  function handleMoreClick(e) {
+    e.preventDefault();
+    console.log('more clicku');
+  }
 
   return (
     <div>
       <List className={classes.root}>
-        {props.restaurantList.length > 0 && props.restaurantList.map((item) => (
-          <ListItem alignItems="flex-start" key={item.name}>
-            <DiningPaper info={item} />
-          </ListItem>
-        ))}
+        {props.restaurantList.length > 0 &&
+          props.restaurantList.map((item, index) => (
+            <ListItem alignItems="flex-start" key={item.name}>
+              <DiningPaper info={item} index={index}/>
+            </ListItem>
+          ))}
       </List>
-      <Button variant="contained" className={classes.moreButton}>더보기</Button>
+      <Button
+        onClick={handleMoreClick}
+        variant="contained"
+        className={classes.moreButton}
+      >
+        더보기
+      </Button>
     </div>
   );
 }
