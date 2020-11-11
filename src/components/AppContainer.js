@@ -39,12 +39,16 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppContainer() {
   const classes = useStyles();
-  const kakaoMap = useRef(null);
+  const kakaoMap = useRef();
 
-  const onChangeIndex = (index) => {
+  const onChangeIndex = (index, flag) => {
     // console.log('AppContainer on change index', index);
     //console.log(kakaoMap);
-    
+    if (flag) {
+      kakaoMap.current.setOverlay(index);
+    } else {
+      kakaoMap.current.unsetOverlay(index);
+    }
   }
 
   return (

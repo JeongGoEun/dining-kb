@@ -37,16 +37,17 @@ export default function DiningPaper(props) {
   const onMouseOver = (e) => {
     //console.log(props.index);
     setPaperColor('gainsboro');
-    props.onChangeIndex(props.index);
+    props.onChangeIndex(props.index, true);
   }
 
   const onMouseOut = (e) => {
     setPaperColor('lavender')
+    props.onChangeIndex(props.index, false);
   }
 
   return (
     <div className={classes.root} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-      <Paper id={props.info.name} className={classes.paper} elevation={3} style={{backgroundColor: paperColor}}>
+      <Paper id={props.index} className={classes.paper} elevation={3} style={{backgroundColor: paperColor}}>
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
