@@ -22,9 +22,8 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DiningList(props) {
   const classes = useStyles();
-  function handleMoreClick(e) {
+  const handleMoreClick = (e) => {
     e.preventDefault();
-    console.log('more clicku');
   }
 
   return (
@@ -33,7 +32,7 @@ export default function DiningList(props) {
         {props.restaurantList.length > 0 &&
           props.restaurantList.map((item, index) => (
             <ListItem alignItems="flex-start" key={item.name}>
-              <DiningPaper info={item} index={index}/>
+              <DiningPaper info={item} index={index} onChangeIndex={props.onChangeIndex}/>
             </ListItem>
           ))}
       </List>

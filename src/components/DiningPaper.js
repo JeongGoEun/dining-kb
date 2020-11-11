@@ -36,7 +36,8 @@ export default function DiningPaper(props) {
 
   const onMouseOver = (e) => {
     //console.log(props.index);
-    setPaperColor('gainsboro')
+    setPaperColor('gainsboro');
+    props.onChangeIndex(props.index);
   }
 
   const onMouseOut = (e) => {

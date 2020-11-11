@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useRef} from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -39,6 +39,13 @@ const useStyles = makeStyles((theme) => ({
 
 export default function AppContainer() {
   const classes = useStyles();
+  const kakaoMap = useRef(null);
+
+  const onChangeIndex = (index) => {
+    // console.log('AppContainer on change index', index);
+    //console.log(kakaoMap);
+    
+  }
 
   return (
     <div className={classes.root}>
@@ -59,11 +66,11 @@ export default function AppContainer() {
         }}
         anchor="left"
       >
-        <DiningList restaurantList = {testData.data}/>
+        <DiningList restaurantList = {testData.data} onChangeIndex={onChangeIndex}/>
       </Drawer>
       <main className={classes.content}>
         <div className={classes.toolbar} />
-        <Map restaurantList = {testData.data}/>
+        <Map restaurantList = {testData.data} ref={kakaoMap}/>
       </main>
     </div>
   );
