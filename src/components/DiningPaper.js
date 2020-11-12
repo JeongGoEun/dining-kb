@@ -54,7 +54,7 @@ export default function DiningPaper(props) {
               <img
                 className={classes.img}
                 alt="complex"
-                src="https://encrypted-tbn0.gstatic.com/images?q=tbn%3AANd9GcQKPdbK5h3mAfWZFUpg-RaHe5EkMur3anBRJA&usqp=CAU"
+                src={props.info.imgUrl}
               />
             </ButtonBase>
           </Grid>
