@@ -73,7 +73,7 @@ export default function DiningPaper(props) {
                 </Typography>
                 <Typography variant="body2" gutterBottom>
                   {props.info.menu.map(item => (
-                    item + ", "
+                    item.name + ", "
                   ))}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">

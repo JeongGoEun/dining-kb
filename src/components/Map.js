@@ -32,6 +32,7 @@ const Map = forwardRef((props, ref) => {
 
       props.restaurantList.forEach((item) => {
         geocoder.addressSearch(item.address, (result, status) => {
+          console.log(result, status);
           if (status === kakao.maps.services.Status.OK) {
             // console.log(result);
             var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
