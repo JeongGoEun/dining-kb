@@ -28,62 +28,53 @@ const Map = forwardRef((props, ref) => {
         level: 3,
       };
       var map = new kakao.maps.Map(container, options);
-      const geocoder = new kakao.maps.services.Geocoder();
-
-      props.restaurantList.forEach((item) => {
-        geocoder.addressSearch(item.address, (result, status) => {
-          console.log(result, status);
-          if (status === kakao.maps.services.Status.OK) {
-            // console.log(result);
-            var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
-
-            var marker = new kakao.maps.Marker({
-              map: map,
-              position: coords,
-              clickable: true,
-            });
-
-            var content =
-              '<div class="wrap">' +
-              '    <div class="info">' +
-              '        <div class="title">' +
-              item.name +
-              '        </div>' +
-              '        <div class="body">' +
-              '            <div class="img">' +
-              '                <img src="' +
-              imgPath +
-              '" width="73" height="70">' +
-              '           </div>' +
-              '            <div class="desc">' +
-              '                <div class="ellipsis">' +
-              item.address +
-              '</div>' +
-              '                <div class="jibun ellipsis">' +
-              item.description +
-              '</div>' +
-              '            </div>' +
-              '        </div>' +
-              '    </div>' +
-              '</div>';
-
-            var overlay = new kakao.maps.CustomOverlay({
-              content: content,
-              map: map,
-              position: marker.getPosition(),
-            });
-
-            // Add overlay listener to marker
-            kakao.maps.event.addListener(marker, 'mouseover', () => {
-              overlay.setMap(map);
-            });
-            kakao.maps.event.addListener(marker, 'mouseout', () => {
-              overlay.setMap(null);
-            });
-            overlay.setMap(null);
-            overlayArr.push(overlay);
-          }
+      props.restaurantList.forEach((item) => {        
+        var coords = new kakao.maps.LatLng(item.lng.toString(),item.lat.toString());
+        var marker = new kakao.maps.Marker({
+          map: map,
+          position: coords,
+          clickable: true,
         });
+
+        var content =
+          '<div class="wrap">' +
+          '    <div class="info">' +
+          '        <div class="title">' +
+          item.name +
+          '        </div>' +
+          '        <div class="body">' +
+          '            <div class="img">' +
+          '                <img src="' +
+          imgPath +
+          '" width="73" height="70">' +
+          '           </div>' +
+          '            <div class="desc">' +
+          '                <div class="ellipsis">' +
+          item.address +
+          '</div>' +
+          '                <div class="jibun ellipsis">' +
+          item.description +
+          '</div>' +
+          '            </div>' +
+          '        </div>' +
+          '    </div>' +
+          '</div>';
+
+        var overlay = new kakao.maps.CustomOverlay({
+          content: content,
+          map: map,
+          position: marker.getPosition(),
+        });
+
+        // Add overlay listener to marker
+        kakao.maps.event.addListener(marker, 'mouseover', () => {
+          overlay.setMap(map);
+        });
+        kakao.maps.event.addListener(marker, 'mouseout', () => {
+          overlay.setMap(null);
+        });
+        overlay.setMap(null);
+        overlayArr.push(overlay);
       });
       // Add type control
       var mapTypeControl = new kakao.maps.MapTypeControl();

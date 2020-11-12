@@ -90,7 +90,6 @@ export default function AppContainer() {
   const classes = useStyles();
   const kakaoMap = useRef();
   const [restaurants, setLestaurants] = useState([]);
-  const [open, setOpen] = useState(true);
 
   useEffect(
     () => {
@@ -98,13 +97,10 @@ export default function AppContainer() {
         .get('http://192.168.62.122:8080/restaurants')
         .then((res) => {
           setLestaurants(res.data);
-          setOpen(false);
         })
         .catch((err) => console.error(err));
     },
-    [],
-    open,
-  );
+    [],);
 
   const onChangeIndex = (index, flag) => {
     if (flag) {
