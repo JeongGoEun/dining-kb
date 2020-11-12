@@ -50,6 +50,9 @@ const Map = forwardRef((props, ref) => {
           '                <div class="ellipsis">' +
           item.address +
           '</div>' +
+          '                <div class="ellipsis"> (☎ ' +
+          item.phoneNumber +
+          ' ) </div>' +
           '                <div class="jibun ellipsis">' +
           item.description +
           '</div>' +
