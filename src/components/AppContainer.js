@@ -91,16 +91,14 @@ export default function AppContainer() {
   const kakaoMap = useRef();
   const [restaurants, setLestaurants] = useState([]);
 
-  useEffect(
-    () => {
-      axios
-        .get('http://192.168.62.122:8080/restaurants')
-        .then((res) => {
-          setLestaurants(res.data);
-        })
-        .catch((err) => console.error(err));
-    },
-    [],);
+  useEffect(() => {
+    axios
+      .get('http://192.168.62.122:8080/restaurants')
+      .then((res) => {
+        setLestaurants(res.data);
+      })
+      .catch((err) => console.error(err));
+  }, []);
 
   const onChangeIndex = (index, flag) => {
     if (flag) {
@@ -109,14 +107,13 @@ export default function AppContainer() {
       kakaoMap.current.unsetOverlay(index);
     }
   };
-  console.log(restaurants, testData.data);
   return (
     <div className={classes.root}>
       <CssBaseline />
       <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <Typography variant="h6" noWrap>
-            Dining KB
+            Dining 0 Deok
           </Typography>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

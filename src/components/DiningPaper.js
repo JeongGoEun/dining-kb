@@ -1,4 +1,4 @@
-import React, {useState}from 'react';
+import React, { useState } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
@@ -24,6 +24,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'block',
     maxWidth: '100%',
     maxHeight: '100%',
+    borderRadius: '5px'
   },
   paperStyle: {
     textAlign: 'start',
@@ -32,22 +33,31 @@ const useStyles = makeStyles((theme) => ({
 
 export default function DiningPaper(props) {
   const classes = useStyles();
-  const [paperColor, setPaperColor]= useState('lavendar');
+  const [paperColor, setPaperColor] = useState('lavendar');
 
   const onMouseOver = (e) => {
     //console.log(props.index);
     setPaperColor('gainsboro');
     props.onChangeIndex(props.index, true);
-  }
+  };
 
   const onMouseOut = (e) => {
-    setPaperColor('lavender')
+    setPaperColor('lavender');
     props.onChangeIndex(props.index, false);
-  }
+  };
 
   return (
-    <div className={classes.root} onMouseOver={onMouseOver} onMouseOut={onMouseOut}>
-      <Paper id={props.index} className={classes.paper} elevation={3} style={{backgroundColor: paperColor}}>
+    <div
+      className={classes.root}
+      onMouseOver={onMouseOver}
+      onMouseOut={onMouseOut}
+    >
+      <Paper
+        id={props.index}
+        className={classes.paper}
+        elevation={3}
+        style={{ backgroundColor: paperColor }}
+      >
         <Grid container spacing={2}>
           <Grid item>
             <ButtonBase className={classes.image}>
@@ -72,9 +82,7 @@ export default function DiningPaper(props) {
                   {props.info.name}
                 </Typography>
                 <Typography variant="body2" gutterBottom>
-                  {props.info.menu.map(item => (
-                    item.name + ", "
-                  ))}
+                  {props.info.menu.map((item) => item.name + ', ').slice(0,3)}
                 </Typography>
                 <Typography variant="body2" color="textSecondary">
                   {props.info.description}
