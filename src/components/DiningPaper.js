@@ -3,11 +3,15 @@ import { makeStyles } from '@material-ui/core/styles';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
+import Modal from '@material-ui/core/Modal';
+import Backdrop from '@material-ui/core/Backdrop';
+import Fade from '@material-ui/core/Fade';
 import ButtonBase from '@material-ui/core/ButtonBase';
 
 const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    cursor: 'pointer'
   },
   paper: {
     padding: theme.spacing(2),
@@ -29,11 +33,28 @@ const useStyles = makeStyles((theme) => ({
   paperStyle: {
     textAlign: 'start',
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  modal_paper: {
+    backgroundColor: theme.palette.background.paper,
+    border: '2px solid #000',
+    boxShadow: theme.shadows[5],
+    padding: theme.spacing(2, 4, 3),
+  },
+  
 }));
 
 export default function DiningPaper(props) {
   const classes = useStyles();
   const [paperColor, setPaperColor] = useState('lavendar');
+  const [open, setOpen] = useState(false);
+
+  const handleModal = () => {
+    setOpen(!open);
+  };
 
   const onMouseOver = (e) => {
     //console.log(props.index);
@@ -51,6 +72,7 @@ export default function DiningPaper(props) {
       className={classes.root}
       onMouseOver={onMouseOver}
       onMouseOut={onMouseOut}
+      onClick={handleModal}
     >
       <Paper
         id={props.index}
@@ -78,9 +100,7 @@ export default function DiningPaper(props) {
               className={classes.paperStyle}
             >
               <Grid item xs>
-                <Typography gutterBottom variant="h5">
-                  {props.info.name}
-                </Typography>
+                <h3>{props.info.name}</h3>
                 <Typography variant="body2" gutterBottom>
                   {props.info.menu.map((item) => item.name + ', ').slice(0,3)}
                 </Typography>
@@ -92,6 +112,26 @@ export default function DiningPaper(props) {
           </Grid>
         </Grid>
       </Paper>
+
+      <Modal
+        aria-labelledby="transition-modal-title"
+        aria-describedby="transition-modal-description"
+        className={classes.modal}
+        open={open}
+        onClose={handleModal}
+        closeAfterTransition
+        BackdropComponent={Backdrop}
+        BackdropProps={{
+          timeout: 500,
+        }}
+      >
+        <Fade in={open}>
+          <div className={classes.modal_paper}>
+            <h2 id="transition-modal-title">Transition modal</h2>
+            <p id="transition-modal-description">react-transition-group animates me.</p>
+          </div>
+        </Fade>
+      </Modal>
     </div>
   );
 }
