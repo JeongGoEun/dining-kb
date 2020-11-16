@@ -26,8 +26,11 @@ const Map = forwardRef((props, ref) => {
         level: 3,
       };
       var map = new kakao.maps.Map(container, options);
-      props.restaurantList.forEach((item) => {        
-        var coords = new kakao.maps.LatLng(item.lng.toString(),item.lat.toString());
+      props.restaurantList.forEach((item) => {
+        var coords = new kakao.maps.LatLng(
+          item.lng.toString(),
+          item.lat.toString(),
+        );
         var marker = new kakao.maps.Marker({
           map: map,
           position: coords,
@@ -96,7 +99,12 @@ const Map = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     setOverlay(index) {
       overlayArr[index].setMap(map);
-      map.panTo(new kakao.maps.LatLng(props.restaurantList[index].lng, props.restaurantList[index].lat));
+      map.panTo(
+        new kakao.maps.LatLng(
+          props.restaurantList[index].lng,
+          props.restaurantList[index].lat,
+        ),
+      );
     },
     unsetOverlay(index) {
       overlayArr[index].setMap(null);
