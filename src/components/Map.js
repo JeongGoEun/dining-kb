@@ -96,6 +96,7 @@ const Map = forwardRef((props, ref) => {
   useImperativeHandle(ref, () => ({
     setOverlay(index) {
       overlayArr[index].setMap(map);
+      map.panTo(new kakao.maps.LatLng(props.restaurantList[index].lng, props.restaurantList[index].lat));
     },
     unsetOverlay(index) {
       overlayArr[index].setMap(null);
