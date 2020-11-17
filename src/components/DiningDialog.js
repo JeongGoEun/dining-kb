@@ -1,13 +1,17 @@
 import React from 'react';
 import { withStyles } from '@material-ui/core/styles';
-import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import MuiDialogContent from '@material-ui/core/DialogContent';
-import MuiDialogActions from '@material-ui/core/DialogActions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import List from '@material-ui/core/List';
+import ListItem from '@material-ui/core/ListItem';
+import ListItemIcon from '@material-ui/core/ListItemIcon';
+import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
+import ListItemText from '@material-ui/core/ListItemText';
 
 const styles = (theme) => ({
   root: {
@@ -20,15 +24,29 @@ const styles = (theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
+  title: {
+    
+  },
+  img: {
+    margin: 'auto',
+    display: 'block',
+    maxWidth: '55%',
+    //maxHeight: '70%',
+    borderRadius: '5px',
+  },
 });
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
+      <Typography variant="h5">{children}</Typography>
       {onClose ? (
-        <IconButton aria-label="close" className={classes.closeButton} onClick={onClose}>
+        <IconButton
+          aria-label="close"
+          className={classes.closeButton}
+          onClick={onClose}
+        >
           <CloseIcon />
         </IconButton>
       ) : null}
@@ -42,29 +60,61 @@ const DialogContent = withStyles((theme) => ({
   },
 }))(MuiDialogContent);
 
-export default function DiningDialog(props) {
+const DiningDialog = withStyles(styles)((props) => {
+  const { classes } = props;
+
   return (
     <div>
-      <Dialog onClose={props.handleClose} aria-labelledby="customized-dialog-title" open={props.open}>
+      <Dialog
+        onClose={props.handleClose}
+        aria-labelledby="customized-dialog-title"
+        open={props.open}
+      >
         <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
           {props.info.name}
         </DialogTitle>
         <DialogContent dividers>
-          <Typography gutterBottom>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio, dapibus ac facilisis
-            in, egestas eget quam. Morbi leo risus, porta ac consectetur ac, vestibulum at eros.
-          </Typography>
-          <Typography gutterBottom>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur et. Vivamus sagittis
-            lacus vel augue laoreet rutrum faucibus dolor auctor.
-          </Typography>
-          <Typography gutterBottom>
-            Aenean lacinia bibendum nulla sed consectetur. Praesent commodo cursus magna, vel
-            scelerisque nisl consectetur et. Donec sed odio dui. Donec ullamcorper nulla non metus
-            auctor fringilla.
-          </Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                <Grid key={'img'} item>
+                  <img
+                    className={classes.img}
+                    alt="complex"
+                    src={props.info.imgUrl}
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Grid container justify="center" spacing={2}>
+                <Grid item xs={12} md={6}>
+                  <Typography variant="h5" className={classes.title}>
+                    <RestaurantMenuIcon /> 메뉴
+                  </Typography>
+                  <div className={classes.demo}>
+                    <List dense>
+                      {props.info.menu.length > 0 && props.info.menu.map((item) => (
+                        <ListItem key={item.id}>
+                          <ListItemText
+                            primary={item.name}
+                            secondary={item.price}
+                          />
+                        </ListItem>
+                      ))}
+                    </List>
+                  </div>
+                </Grid>
+                <Grid key={'value'} item>
+                  ㅁㄴㅇㄻㄴㅇㄹ
+                </Grid>
+              </Grid>
+            </Grid>
+          </Grid>
         </DialogContent>
       </Dialog>
     </div>
   );
-}
+});
+
+export default DiningDialog;
