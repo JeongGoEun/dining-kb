@@ -14,6 +14,8 @@ import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
+import Rating from '@material-ui/lab/Rating';
+
 
 const styles = (theme) => ({
   root: {
@@ -26,7 +28,6 @@ const styles = (theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-  title: {},
   img: {
     display: 'inline',
     margin: '2% 4%',
@@ -35,16 +36,6 @@ const styles = (theme) => ({
     borderRadius: '5px',
     float: 'left   z',
   },
-  primary: {
-    fontSize: 'small'
-  },
-  MuiTypographyBody1: {
-    fontSize: 'small'
-  },
-  MuiListItemTextRoot: {
-    marginBottom: '4px',
-    marginLeft: '5px',
-  }
 });
 
 const DialogTitle = withStyles(styles)((props) => {
@@ -96,11 +87,11 @@ const DiningDialog = withStyles(styles)((props) => {
               <List style={{padding: '0'}}>
                 <ListItem>
                   <RoomOutlinedIcon style={{fontSize: '1.2rem'}} />
-                  <ListItemText classes={classes.primary} primary={props.info.address} prima/>
+                  <ListItemText classes={classes.listItem} primary={props.info.address} prima/>
                 </ListItem>
                 <ListItem>
                   <PhoneOutlinedIcon style={{fontSize: '1.2rem'}}/>
-                  <ListItemText style={{ fontSize: 'small' }} primary={props.info.phoneNumber} />
+                  <ListItemText classes={classes.listItem} primary={props.info.phoneNumber} />
                 </ListItem>
                 <ListItem>
                   <QueryBuilderOutlinedIcon style={{fontSize: '1.2rem'}}/>
@@ -108,6 +99,7 @@ const DiningDialog = withStyles(styles)((props) => {
                 </ListItem>
                 <ListItem>
                   <ListItemText className={classes.listItem} secondary="별점" />
+                  <Rating name="read-only" value={3} readOnly />
                 </ListItem>
               </List>
             </Grid>
