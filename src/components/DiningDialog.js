@@ -6,12 +6,14 @@ import MuiDialogContent from '@material-ui/core/DialogContent';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
+import RoomOutlinedIcon from '@material-ui/icons/RoomOutlined';
+import PhoneOutlinedIcon from '@material-ui/icons/PhoneOutlined';
+import QueryBuilderOutlinedIcon from '@material-ui/icons/QueryBuilderOutlined';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import RestaurantMenuIcon from '@material-ui/icons/RestaurantMenu';
 import ListItemText from '@material-ui/core/ListItemText';
+import Grid from '@material-ui/core/Grid';
+import Divider from '@material-ui/core/Divider';
 
 const styles = (theme) => ({
   root: {
@@ -24,23 +26,32 @@ const styles = (theme) => ({
     top: theme.spacing(1),
     color: theme.palette.grey[500],
   },
-  title: {
-    
-  },
+  title: {},
   img: {
-    margin: 'auto',
-    display: 'block',
-    maxWidth: '55%',
-    //maxHeight: '70%',
+    display: 'inline',
+    margin: '2% 4%',
+    maxWidth: '100%',
+    maxHeight: '100%',
     borderRadius: '5px',
+    float: 'left   z',
   },
+  primary: {
+    fontSize: 'small'
+  },
+  MuiTypographyBody1: {
+    fontSize: 'small'
+  },
+  MuiListItemTextRoot: {
+    marginBottom: '4px',
+    marginLeft: '5px',
+  }
 });
 
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h5">{children}</Typography>
+      <Typography variant="h6">{children}</Typography>
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -62,7 +73,6 @@ const DialogContent = withStyles((theme) => ({
 
 const DiningDialog = withStyles(styles)((props) => {
   const { classes } = props;
-
   return (
     <div>
       <Dialog
@@ -74,43 +84,35 @@ const DiningDialog = withStyles(styles)((props) => {
           {props.info.name}
         </DialogTitle>
         <DialogContent dividers>
-          <Grid container spacing={2}>
-            <Grid item xs={12}>
-              <Grid container justify="center" spacing={2}>
-                <Grid key={'img'} item>
-                  <img
-                    className={classes.img}
-                    alt="complex"
-                    src={props.info.imgUrl}
-                  />
-                </Grid>
-              </Grid>
+          <Grid container item  spacing={3}>
+            <Grid xs={4} item>
+              <img
+                className={classes.img}
+                alt="complex"
+                src={props.info.imgUrl}
+              />
             </Grid>
-            <Grid item xs={12}>
-              <Grid container justify="center" spacing={2}>
-                <Grid item xs={12} md={6}>
-                  <Typography variant="h5" className={classes.title}>
-                    <RestaurantMenuIcon /> 메뉴
-                  </Typography>
-                  <div className={classes.demo}>
-                    <List dense>
-                      {props.info.menu.length > 0 && props.info.menu.map((item) => (
-                        <ListItem key={item.id}>
-                          <ListItemText
-                            primary={item.name}
-                            secondary={item.price}
-                          />
-                        </ListItem>
-                      ))}
-                    </List>
-                  </div>
-                </Grid>
-                <Grid key={'value'} item>
-                  ㅁㄴㅇㄻㄴㅇㄹ
-                </Grid>
-              </Grid>
+            <Grid item xs={8}>
+              <List style={{padding: '0'}}>
+                <ListItem>
+                  <RoomOutlinedIcon style={{fontSize: '1.2rem'}} />
+                  <ListItemText classes={classes.primary} primary={props.info.address} prima/>
+                </ListItem>
+                <ListItem>
+                  <PhoneOutlinedIcon style={{fontSize: '1.2rem'}}/>
+                  <ListItemText style={{ fontSize: 'small' }} primary={props.info.phoneNumber} />
+                </ListItem>
+                <ListItem>
+                  <QueryBuilderOutlinedIcon style={{fontSize: '1.2rem'}}/>
+                  <ListItemText className={classes.listItem} primary="영업시간" />
+                </ListItem>
+                <ListItem>
+                  <ListItemText className={classes.listItem} secondary="별점" />
+                </ListItem>
+              </List>
             </Grid>
           </Grid>
+          <Divider />
         </DialogContent>
       </Dialog>
     </div>
