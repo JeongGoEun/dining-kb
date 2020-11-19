@@ -35,9 +35,8 @@ const styles = (theme) => ({
     maxHeight: '100%',
     borderRadius: '5px',
     float: 'left   z',
-  },
+  }
 });
-
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
@@ -55,12 +54,13 @@ const DialogTitle = withStyles(styles)((props) => {
     </MuiDialogTitle>
   );
 });
-
 const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
-  },
+  }
 }))(MuiDialogContent);
+
+
 
 const DiningDialog = withStyles(styles)((props) => {
   const { classes } = props;
@@ -86,19 +86,19 @@ const DiningDialog = withStyles(styles)((props) => {
             <Grid item xs={8}>
               <List style={{padding: '0'}}>
                 <ListItem>
-                  <RoomOutlinedIcon style={{fontSize: '1.2rem'}} />
-                  <ListItemText classes={classes.listItem} primary={props.info.address} prima/>
+                  <RoomOutlinedIcon style={{fontSize: '1.2rem', marginRight: '4px'}} />
+                  <Typography variant="body2">{props.info.address}</Typography>
                 </ListItem>
                 <ListItem>
-                  <PhoneOutlinedIcon style={{fontSize: '1.2rem'}}/>
-                  <ListItemText classes={classes.listItem} primary={props.info.phoneNumber} />
+                  <PhoneOutlinedIcon style={{fontSize: '1.2rem', marginRight: '4px'}}/>
+                  <Typography variant="body2">{props.info.phoneNumber}</Typography>
                 </ListItem>
                 <ListItem>
-                  <QueryBuilderOutlinedIcon style={{fontSize: '1.2rem'}}/>
-                  <ListItemText className={classes.listItem} primary="영업시간" />
+                  <QueryBuilderOutlinedIcon style={{fontSize: '1.2rem', marginRight: '4px'}}d/>
+                  <Typography variant="body2">영업시간</Typography>
                 </ListItem>
                 <ListItem>
-                  <ListItemText className={classes.listItem} secondary="별점" />
+                  <ListItemText className={classes.listItem} secondary="별점"/>
                   <Rating name="read-only" value={3} readOnly />
                 </ListItem>
               </List>
