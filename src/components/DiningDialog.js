@@ -16,7 +16,7 @@ import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Rating from '@material-ui/lab/Rating';
 import Chip from '@material-ui/core/Chip';
-
+import {DiningMenu} from './index'
 const axios = require('axios').default;
 
 const styles = (theme) => ({
@@ -130,7 +130,7 @@ const DiningDialog = withStyles(styles)((props) => {
                     <Rating name="read-only" value={info.grade.total} precision={0.5} readOnly />
                   </ListItem>
                   <ListItem>
-                    {info.tag.map((item, index) =>
+                    {info.tag.slice(0,4).map((item, index) =>
                       <Chip key={item.id} label={'#'+item.name} size="small" style={{marginRight: '4px'}}/>
                     )}
                   </ListItem>
@@ -138,6 +138,7 @@ const DiningDialog = withStyles(styles)((props) => {
               </Grid>
             </Grid>
             <Divider />
+            <DiningMenu />
           </DialogContent>
         </Dialog>
       )}
