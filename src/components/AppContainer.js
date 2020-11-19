@@ -9,9 +9,7 @@ import SearchIcon from '@material-ui/icons/Search';
 import InputBase from '@material-ui/core/InputBase';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
-
 import { DiningList, Map } from './index';
-import * as testData from '../static/testData.json';
 
 const drawerWidth = 400;
 const axios = require('axios').default;

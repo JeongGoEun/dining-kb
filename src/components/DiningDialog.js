@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { withStyles } from '@material-ui/core/styles';
 import Dialog from '@material-ui/core/Dialog';
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
@@ -15,7 +15,9 @@ import ListItemText from '@material-ui/core/ListItemText';
 import Grid from '@material-ui/core/Grid';
 import Divider from '@material-ui/core/Divider';
 import Rating from '@material-ui/lab/Rating';
+import Chip from '@material-ui/core/Chip';
 
+const axios = require('axios').default;
 
 const styles = (theme) => ({
   root: {
@@ -35,7 +37,7 @@ const styles = (theme) => ({
     maxHeight: '100%',
     borderRadius: '5px',
     float: 'left   z',
-  }
+  },
 });
 const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
@@ -57,56 +59,88 @@ const DialogTitle = withStyles(styles)((props) => {
 const DialogContent = withStyles((theme) => ({
   root: {
     padding: theme.spacing(2),
-  }
+  },
 }))(MuiDialogContent);
-
-
 
 const DiningDialog = withStyles(styles)((props) => {
   const { classes } = props;
+  const [info, setDiningInfo] = useState({});
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    axios
+      .get('http://192.168.62.122:8080/restaurants/' + props.id)
+      .then((res) => {
+        setDiningInfo(res.data);
+        setLoaded(true);
+      })
+      .catch((err) => console.error(err));
+  }, [info, props.id]);
+
   return (
     <div>
-      <Dialog
-        onClose={props.handleClose}
-        aria-labelledby="customized-dialog-title"
-        open={props.open}
-      >
-        <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
-          {props.info.name}
-        </DialogTitle>
-        <DialogContent dividers>
-          <Grid container item  spacing={3}>
-            <Grid xs={4} item>
-              <img
-                className={classes.img}
-                alt="complex"
-                src={props.info.imgUrl}
-              />
+      {loaded && (
+        <Dialog
+          onClose={props.handleClose}
+          aria-labelledby="customized-dialog-title"
+          open={props.open}
+        >
+          <DialogTitle id="customized-dialog-title" onClose={props.handleClose}>
+            {info.name}
+          </DialogTitle>
+          <DialogContent dividers>
+            <Grid container item spacing={3}>
+              <Grid xs={4} item>
+                <img
+                  className={classes.img}
+                  alt="complex"
+                  src={info.imgUrl}
+                />
+              </Grid>
+              <Grid item xs={8}>
+                <List style={{ padding: '0' }}>
+                  <ListItem>
+                    <RoomOutlinedIcon
+                      style={{ fontSize: '1.2rem', marginRight: '4px' }}
+                    />
+                    <Typography variant="body2">
+                      {info.address}
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <PhoneOutlinedIcon
+                      style={{ fontSize: '1.2rem', marginRight: '4px' }}
+                    />
+                    <Typography variant="body2">
+                      {info.phoneNumber}
+                    </Typography>
+                  </ListItem>
+                  <ListItem>
+                    <QueryBuilderOutlinedIcon
+                      style={{ fontSize: '1.2rem', marginRight: '4px' }}
+                    />
+                    <Typography variant="body2">({info.operTime[0].day}) {info.operTime[0].time}</Typography>
+                  </ListItem>
+                  <ListItem>
+                    <ListItemText
+                      className={classes.listItem}
+                      primary={info.grade.total+'점'}
+                    />
+                    <Typography variant="body2">{info.grade.number}명 평가</Typography>
+                    <Rating name="read-only" value={info.grade.total} precision={0.5} readOnly />
+                  </ListItem>
+                  <ListItem>
+                    {info.tag.map((item, index) =>
+                      <Chip key={item.id} label={'#'+item.name} size="small" style={{marginRight: '4px'}}/>
+                    )}
+                  </ListItem>
+                </List>
+              </Grid>
             </Grid>
-            <Grid item xs={8}>
-              <List style={{padding: '0'}}>
-                <ListItem>
-                  <RoomOutlinedIcon style={{fontSize: '1.2rem', marginRight: '4px'}} />
-                  <Typography variant="body2">{props.info.address}</Typography>
-                </ListItem>
-                <ListItem>
-                  <PhoneOutlinedIcon style={{fontSize: '1.2rem', marginRight: '4px'}}/>
-                  <Typography variant="body2">{props.info.phoneNumber}</Typography>
-                </ListItem>
-                <ListItem>
-                  <QueryBuilderOutlinedIcon style={{fontSize: '1.2rem', marginRight: '4px'}}d/>
-                  <Typography variant="body2">영업시간</Typography>
-                </ListItem>
-                <ListItem>
-                  <ListItemText className={classes.listItem} secondary="별점"/>
-                  <Rating name="read-only" value={3} readOnly />
-                </ListItem>
-              </List>
-            </Grid>
-          </Grid>
-          <Divider />
-        </DialogContent>
-      </Dialog>
+            <Divider />
+          </DialogContent>
+        </Dialog>
+      )}
     </div>
   );
 });

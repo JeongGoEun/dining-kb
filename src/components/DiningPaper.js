@@ -116,7 +116,7 @@ export default function DiningPaper(props) {
           </Grid>
         </Paper>
       </div>
-      <DiningDialog handleClose={handleClose} open={open} info={props.info}/>
+      <DiningDialog handleClose={handleClose} open={open} id={props.info.id}/>
     </div>
   );
 }
