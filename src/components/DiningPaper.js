@@ -56,12 +56,12 @@ export default function DiningPaper(props) {
     setOpen(false);
   };
 
-  const onMouseOver = (e) => {
+  const onMouseEnter = (e) => {
     setPaperColor('gainsboro');
     props.onChangeIndex(props.index, true);
   };
 
-  const onMouseOut = (e) => {
+  const onMouseLeave = (e) => {
     setPaperColor('lavender');
     props.onChangeIndex(props.index, false);
   };
@@ -71,8 +71,9 @@ export default function DiningPaper(props) {
       className={classes.root}
     >
       <div
-        onMouseOver={onMouseOver}
-        onMouseOut={onMouseOut}
+        onMouse
+        onMouseEnter={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         onClick={handleClickOpen}
       >
         <Paper

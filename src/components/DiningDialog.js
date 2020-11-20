@@ -17,8 +17,9 @@ import Divider from '@material-ui/core/Divider';
 import Rating from '@material-ui/lab/Rating';
 import Chip from '@material-ui/core/Chip';
 import {DiningMenu} from './index'
-const axios = require('axios').default;
+import * as util from './util'
 
+const axios = require('axios').default;
 const styles = (theme) => ({
   root: {
     margin: 0,
@@ -43,7 +44,7 @@ const DialogTitle = withStyles(styles)((props) => {
   const { children, classes, onClose, ...other } = props;
   return (
     <MuiDialogTitle disableTypography className={classes.root} {...other}>
-      <Typography variant="h6">{children}</Typography>
+      <Typography variant="h5">{children}</Typography>
       {onClose ? (
         <IconButton
           aria-label="close"
@@ -68,14 +69,22 @@ const DiningDialog = withStyles(styles)((props) => {
   const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
-    axios
+    let data = util.getRestaurantInfoFromLocal(props.id.toString());
+
+    if(data) {
+      setDiningInfo(data);
+      setLoaded(true);
+    } else {
+      axios
       .get('http://192.168.62.122:8080/restaurants/' + props.id)
       .then((res) => {
+        util.setRestaurantInfoToLocal(props.id, res.data);
         setDiningInfo(res.data);
         setLoaded(true);
       })
       .catch((err) => console.error(err));
-  }, [info, props.id]);
+    }
+  }, []);
 
   return (
     <div>

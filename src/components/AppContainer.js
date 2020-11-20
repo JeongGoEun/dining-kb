@@ -10,10 +10,10 @@ import InputBase from '@material-ui/core/InputBase';
 import Backdrop from '@material-ui/core/Backdrop';
 import CircularProgress from '@material-ui/core/CircularProgress';
 import { DiningList, Map } from './index';
+import * as util from './util'
 
 const drawerWidth = 400;
 const axios = require('axios').default;
-
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
@@ -27,6 +27,7 @@ const useStyles = makeStyles((theme) => ({
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
+    backgroundColor: 'white'
   },
   drawerPaper: {
     width: drawerWidth,
@@ -35,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
   content: {
     flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
+    //backgroundColor: theme.palette.background.default,
     padding: theme.spacing(0.5),
   },
   search: {
@@ -87,15 +88,23 @@ const useStyles = makeStyles((theme) => ({
 export default function AppContainer() {
   const classes = useStyles();
   const kakaoMap = useRef();
-  const [restaurants, setLestaurants] = useState([]);
+  const [restaurants, setRestaurants] = useState([]);
 
   useEffect(() => {
-    axios
+    let localData = util.getRestaurantsFromLocal();
+
+    if (localData) {
+      console.log('local');
+      setRestaurants(localData);
+    } else {
+      axios
       .get('http://192.168.62.122:8080/restaurants')
       .then((res) => {
-        setLestaurants(res.data);
+        util.setRestaurantsToLocal(res.data);
+        setRestaurants(res.data);
       })
       .catch((err) => console.error(err));
+    }
   }, []);
 
   const onChangeIndex = (index, flag) => {
