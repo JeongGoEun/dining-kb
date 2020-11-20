@@ -147,7 +147,7 @@ const DiningDialog = withStyles(styles)((props) => {
               </Grid>
             </Grid>
             <Divider />
-            <DiningMenu />
+            <DiningMenu menu={info.menu} />
           </DialogContent>
         </Dialog>
       )}

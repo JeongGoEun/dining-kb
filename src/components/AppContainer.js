@@ -94,7 +94,6 @@ export default function AppContainer() {
     let localData = util.getRestaurantsFromLocal();
 
     if (localData) {
-      console.log('local');
       setRestaurants(localData);
     } else {
       axios

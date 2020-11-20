@@ -71,7 +71,6 @@ export default function DiningPaper(props) {
       className={classes.root}
     >
       <div
-        onMouse
         onMouseEnter={onMouseEnter}
         onMouseLeave={onMouseLeave}
         onClick={handleClickOpen}
