@@ -22,19 +22,19 @@ export default function DiningMenu(props) {
   return (
     <div className={classes.root}>
       <Grid container spacing={2}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <h3 className={classes.title}>메뉴</h3>
           <div className={classes.demo}>
             <List dense>
               {props.menu.map((item) => (
-                <ListItem id={item.id}>
+                <ListItem id={item.id} key={item.id}>
                   <ListItemText primary={item.name}/>
                 </ListItem>
               ))}
             </List>
           </div>
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12} sm={6}>
           <h3 className={classes.title}>가격</h3>
           <div className={classes.demo}>
             <List dense>
