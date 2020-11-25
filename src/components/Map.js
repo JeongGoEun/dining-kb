@@ -5,6 +5,8 @@ import React, {
   useImperativeHandle,
 } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
+import { DiningDialog } from './index'
+
 
 const { kakao } = window;
 const useStyles = makeStyles((theme) => ({
@@ -68,6 +70,12 @@ const Map = forwardRef((props, ref) => {
           content: content,
           map: map,
           position: marker.getPosition(),
+        });
+
+        // Add click listener
+        kakao.maps.event.addListener(marker, 'click', () => {
+          overlay.setMap(null);
+          console.log('click');
         });
 
         // Add overlay listener to marker

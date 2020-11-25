@@ -39,7 +39,7 @@ export default function DiningMenu(props) {
           <div className={classes.demo}>
             <List dense>
               {props.menu.map((item) => (
-                <ListItem id={item.id}>
+                <ListItem id={item.id} key={item.id}>
                   <ListItemText primary={item.price} />
                 </ListItem>
               ))}
